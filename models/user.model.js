@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -23,7 +23,7 @@ const userSchema = new Schema({
 
 
 // used while encrypting user entered password
-userSchema.pre("save",async function(){
+/*userSchema.pre("save",async function(){
     var user = this;
     if(!user.isModified("password")){
         return
@@ -49,7 +49,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
     } catch (error) {
         throw error;
     }
-};
+};*/
 
 const UserModel = db.model('user',userSchema);
 module.exports = UserModel;

@@ -11,7 +11,7 @@ exports.createToDo =  async (req,res,next)=>{
     }
 }
 
-exports.getToDoList =  async (req,res,next)=>{
+/*exports.getToDoList =  async (req,res,next)=>{
     try {
         const { userId } = req.body;
         let todoData = await ToDoService.getUserToDoList(userId);
@@ -20,7 +20,34 @@ exports.getToDoList =  async (req,res,next)=>{
         console.log(error, 'err---->');
         next(error);
     }
-}
+}*/
+
+exports.getToDoList = async (req, res, next) => {
+    try {
+        const { userId } = req.body;
+        
+        // Ensure userId is provided
+        if (!userId) {
+            return res.status(400).json({ status: false, message: "userId is required" });
+        }
+
+        // Fetch todo data from the service
+        let todoData = await ToDoService.getUserToDoList(userId);
+
+        // Send the response back to the client
+        res.json({ status: true, success: todoData });
+    } catch (error) {
+        console.error(error, 'err---->');
+        
+        // Send a generic error message to the client
+        res.status(500).json({ status: false, message: "Internal Server Error" });
+
+        // Pass the error to the next middleware
+        next(error);
+    }
+};
+
+
 
 exports.deleteToDo =  async (req,res,next)=>{
     try {

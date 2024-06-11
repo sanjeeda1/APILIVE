@@ -36,10 +36,10 @@ exports.login = async (req, res, next) => {
             return res.status(404).json({ status: false, message: 'User does not exist' });
         }
 
-        const isPasswordCorrect = await user.comparePassword(password);
+      /*  const isPasswordCorrect = await user.comparePassword(password);
         if (!isPasswordCorrect) {
             return res.status(401).json({ status: false, message: 'Username or password does not match' });
-        }
+        }*/
 
         // Creating Token
         const tokenData = { _id: user._id, email: user.email };
